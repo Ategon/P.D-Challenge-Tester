@@ -1,4 +1,4 @@
-# P.D-Challenge-Tester
+# P.D Challenge Tester
 A CLI to test solutions for the https://programming.dev programming challenges community
 
 ## How to Add Test Cases
