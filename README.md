@@ -5,7 +5,7 @@ A CLI to test solutions for the https://programming.dev programming challenges c
 1. Create or open the tests.txt file. Each line in the file is a new test case
 2. Add the input text for what the input should be for a case on some line
 3. (optional) Put a - to the right of the input text and then put the output that should be printed when the solution is ran to the right of that (if omitted expects a blank output)
-4. (optional) Put a = to the left of the input texty and then put the name of the test case to the left of that
+4. (optional) Put a = to the left of the input text and then put the name of the test case to the left of that
 5. Repeat 2-4 for all test cases with each one on a different line
 
 ## How to Test Solutions
