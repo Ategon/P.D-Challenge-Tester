@@ -2,7 +2,7 @@
 A CLI to test solutions for the https://programming.dev programming challenges community
 
 ## How to Add Test Cases
-1. Create or open the tests.txt file. Each file in the file is a new test case
+1. Create or open the tests.txt file. Each line in the file is a new test case
 2. Add the input text for what the input should be for a case on some line
 3. (optional) Put a - to the right of the input text and then put the output that should be printed when the solution is ran to the right of that
 4. (optional) Put a = to the left of the input texty and then put the name of the test case to the left of that
