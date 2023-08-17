@@ -25,7 +25,7 @@ There are some options you can provide to change how it tests.
   - `-br <amount>` will set the amount of times it tries to run the base file and then set the base time to the median between all of them
   - `-t <testfile>` with testfile replaced with a file name (+extension) will read tests from that file instead of the default tests.txt
 
-The current settings I use are `node tester.js run -b "node bases/basejs.js" -i 50 -br 250 "node main.js"` (with fields populated with js there)
+The current settings I use are `node tester.js run -b "node bases/basejs.js" -i 50 -br 250 "node main.js"` (with fields in there populated with js as an example)
 
 ## How to Count Characters
 1. Install node.js if you haven't already
