@@ -2,7 +2,7 @@ import { promisify } from 'util'
 import { exec } from 'child_process'
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { resolve, dirname } from 'path';
+import { resolve, dirname, relative } from 'path';
 import { program } from 'commander';
 import { stripIndents } from 'common-tags'
 import chalk from 'chalk';
@@ -21,15 +21,26 @@ program
 program.command('stats')
     .description('Show stats for a file such as the amount of characters it has')
     .argument('<file>', 'A path to the file')
-    .action((file) => {
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = dirname(__filename);
-        const data = readFileSync(resolve(__dirname, `./${file}`), { encoding: 'utf8', flag: 'r' });
+    .option('-s --spaces <amount>', 'The amount of spaces')
+    .action(async (file, options) => {
+        const __filename = await fileURLToPath(import.meta.url);
+        const __dirname = await dirname(__filename);
+        const data = await readFileSync(resolve(__dirname, `./${file}`), { encoding: 'utf8', flag: 'r' });
         
-        const filteredData = data
-            .replaceAll('\r\n', '\n')
-            .replaceAll('    ', '  ')
-            .replaceAll('\t', '  ')
+        let filteredData = data;
+
+        if (options.spaces) {
+            filteredData = await filteredData.replaceAll('\r\n', '\n')
+            
+            if (options.spaces == '4') {
+                filteredData = await filteredData.replaceAll('    ', '  ');
+            }
+            else if (options.spaces == 't') {
+                filteredData = await filteredData.replaceAll('\t', '  ');
+            }
+        }
+
+        console.log(filteredData)
         
         printHeader(file);
 
@@ -168,6 +179,10 @@ async function getBaseTime(baseCommand, baseTimeRuns) {
  * @returns {number}
 */
 async function runBaseTest(baseCommand) {
+    if (baseCommand[0] == ".") {
+        baseCommand = await resolve(baseCommand)
+    }
+
     const startTime = performance.now();
     const output = (await ex(baseCommand)).stdout.trim();
     const endTime = performance.now();
@@ -248,6 +263,11 @@ async function runTests(command, tests, baseTime) {
  */
 async function runTest(command, input, answer) {
     const startTime = performance.now();
+
+    if (command[0] == ".") {
+        command = await resolve(command)
+    }
+
     const output = (await ex(`${command} ${input}`)).stdout.trim();
     const endTime = performance.now();
 
